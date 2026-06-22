@@ -5,21 +5,21 @@
 class AiIssue < Formula
   desc "A CLI tool to publish AI-generated ideas as GitHub Issues, clearly separating AI authorship from human responsibility."
   homepage "https://github.com/replworks/ai-issue"
-  version "1.0.2"
+  version "1.1.0"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/replworks/ai-issue/releases/download/v1.0.2/ai-issue_1.0.2_darwin_amd64.tar.gz"
-      sha256 "e10ffbca83bd2a296efd01d684001f8ea2898e0048c493febc114abba56b5f9a"
+      url "https://github.com/replworks/ai-issue/releases/download/v1.1.0/ai-issue_1.1.0_darwin_amd64.tar.gz"
+      sha256 "60ad2b117a8b9127c891b66f54e7c841c2cd710068b79c69163adf9426f24ba3"
 
       define_method(:install) do
         bin.install "ai-issue"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/replworks/ai-issue/releases/download/v1.0.2/ai-issue_1.0.2_darwin_arm64.tar.gz"
-      sha256 "707584e3c44fdd6b15aa665545c84fe927a874b0561f08b06002d9c93ede39fb"
+      url "https://github.com/replworks/ai-issue/releases/download/v1.1.0/ai-issue_1.1.0_darwin_arm64.tar.gz"
+      sha256 "27efd7dd39f5f0c0dfe2238435e95be0e223733a20cbb69e2874ec17e4489263"
 
       define_method(:install) do
         bin.install "ai-issue"
@@ -29,15 +29,15 @@ class AiIssue < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/replworks/ai-issue/releases/download/v1.0.2/ai-issue_1.0.2_linux_amd64.tar.gz"
-      sha256 "9aa892f3218512a0a12699a2b542221399e7e90c8dc9bd59d6543d58a049e3ed"
+      url "https://github.com/replworks/ai-issue/releases/download/v1.1.0/ai-issue_1.1.0_linux_amd64.tar.gz"
+      sha256 "eb45a4c67f73c5a74fdc86e336eb72c5510ec630462e270ce3108b6dbbc4c55b"
       define_method(:install) do
         bin.install "ai-issue"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/replworks/ai-issue/releases/download/v1.0.2/ai-issue_1.0.2_linux_arm64.tar.gz"
-      sha256 "0a93b4689c0029740887160fa4c079a84348d9d6bb73080bf7261f08cf20f330"
+      url "https://github.com/replworks/ai-issue/releases/download/v1.1.0/ai-issue_1.1.0_linux_arm64.tar.gz"
+      sha256 "e69a87ad42738e21b323a6fc9e6b9ca763c78345cbc3c9964ae0451f9ae890eb"
       define_method(:install) do
         bin.install "ai-issue"
       end
