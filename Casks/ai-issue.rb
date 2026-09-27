@@ -2,7 +2,7 @@
 cask "ai-issue" do
   on_macos do
     postflight_steps do
-      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "ai-issue"]
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/ai-issue"]
     end
   end
 
