@@ -35,7 +35,7 @@ cask "repl-cli" do
 
   on_macos do
     postflight_steps do
-      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/coolrestore"]
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/repl-cli"]
     end
   end
 
