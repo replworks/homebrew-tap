@@ -1,0 +1,71 @@
+name: pages
+
+on:
+    push:
+        branches: [main]
+        paths:
+            - "Casks/**"
+            - "index.html"
+            - "404.html"
+            - ".github/workflows/pages.yml"
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+concurrency:
+    group: pages
+    cancel-in-progress: false
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Build landing page
+              run: |
+                  mkdir -p site
+                  python3 - <<'PY'
+                  import html
+                  import pathlib
+                  import re
+
+                  def field(text, key):
+                      m = re.search(rf'^\s*{key}\s+"([^"]*)"', text, re.M)
+                      return m.group(1) if m else ""
+
+                  rows = []
+                  for path in sorted(pathlib.Path("Casks").glob("*.rb")):
+                      text = path.read_text()
+                      link = ""
+                      home = field(text, "homepage")
+                      if home.startswith("https://") or home.startswith("http://"):
+                          link = f'<a href="{html.escape(home, quote=True)}">GitHub</a>'
+                      rows.append(
+                          '    <li><div class="top">'
+                          f'<strong>{html.escape(path.stem)}</strong>'
+                          f'<span class="ver">{html.escape(field(text, "version"))}</span>'
+                          f'{link}</div>'
+                          f'<p>{html.escape(field(text, "desc"))}</p></li>'
+                      )
+
+                  page = pathlib.Path("index.html").read_text().replace("<!--PACKAGES-->", "\n".join(rows))
+                  pathlib.Path("site/index.html").write_text(page)
+                  if pathlib.Path("404.html").exists():
+                      pathlib.Path("site/404.html").write_text(pathlib.Path("404.html").read_text())
+                  else:
+                      pathlib.Path("site/404.html").write_text(page)
+                  PY
+
+            - uses: actions/configure-pages@v6
+            - uses: actions/upload-pages-artifact@v5
+              with:
+                  path: site
+            - id: deployment
+              uses: actions/deploy-pages@v5
