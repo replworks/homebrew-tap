@@ -8,6 +8,26 @@
       name="description"
       content="Official Homebrew Tap repository for replworks open-source macOS tools and CLI applications. Easily install and manage casks via brew."
     />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="replworks Homebrew Tap | brew tap replworks/tap"
+    />
+    <meta
+      property="og:description"
+      content="Official Homebrew Tap repository for replworks open-source macOS tools and CLI applications. Easily install and manage casks via brew."
+    />
+    <meta
+      property="og:url"
+      content="https://replworks.github.io/homebrew-tap/"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="replworks Homebrew Tap" />
+    <meta
+      name="twitter:description"
+      content="Official Homebrew Tap repository for replworks open-source macOS tools and CLI applications."
+    />
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%230284c7%22/><path d=%22M25 45L40 60L75 25%22 stroke=%22white%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 fill=%22none%22/></svg>"
@@ -121,6 +141,32 @@
         overflow-wrap: break-word;
         word-break: break-all;
       }
+
+      /* Toast notification */
+      #toast {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(2rem);
+        background: rgba(220, 38, 38, 0.9);
+        color: #fff;
+        font-size: 0.8rem;
+        font-family: "Inter", sans-serif;
+        padding: 0.6rem 1.2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
+        z-index: 9999;
+      }
+      #toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: auto;
+      }
     </style>
   </head>
   <body
@@ -222,12 +268,34 @@
             class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 border border-slate-800 transition focus:outline-none"
           >
             <!-- Hamburger Icon -->
-            <svg id="menu-icon-open" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <svg
+              id="menu-icon-open"
+              class="w-5 h-5 block"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
             </svg>
             <!-- Close Icon -->
-            <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            <svg
+              id="menu-icon-close"
+              class="w-5 h-5 hidden"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
             </svg>
           </button>
         </div>
@@ -261,7 +329,19 @@
             class="mobile-nav-link px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-900 transition-colors flex items-center justify-between"
           >
             <span>🌐 APT 저장소 (Debian/Ubuntu)</span>
-            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            <svg
+              class="w-3.5 h-3.5 text-slate-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              ></path>
+            </svg>
           </a>
           <div class="pt-2 border-t border-slate-800/80">
             <a
@@ -279,7 +359,6 @@
             </a>
           </div>
         </div>
-      </div>
       </div>
     </header>
 
@@ -375,7 +454,15 @@
                     src="https://github.com/replworks/homebrew-tap/actions/workflows/pages.yml/badge.svg"
                     alt="Pages Status"
                     class="h-4"
-                  />
+                    loading="lazy"
+                    onerror="
+                      this.style.display = 'none';
+                      this.nextElementSibling.style.display = 'inline';
+                    "
+                  /><span
+                    style="display: none; font-size: 0.65rem; color: #94a3b8"
+                    >badge unavailable</span
+                  >
                 </a>
               </li>
               <li class="flex items-center justify-between py-1">
@@ -426,6 +513,7 @@
               >
             </div>
             <button
+              type="button"
               onclick="copyCode('cmd-oneliner', this)"
               class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shrink-0"
             >
@@ -484,6 +572,7 @@
                 >
               </div>
               <button
+                type="button"
                 onclick="copyCode('cmd-step1', this)"
                 class="inline-flex items-center gap-1.5 px-2 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition"
               >
@@ -521,6 +610,7 @@
                 >
               </div>
               <button
+                type="button"
                 onclick="copyCode('cmd-step2', this)"
                 class="inline-flex items-center gap-1.5 px-2 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition"
               >
@@ -565,6 +655,7 @@
                     >업데이트</span
                   >
                   <button
+                    type="button"
                     onclick="copyCode('cmd-step3-up', this)"
                     class="text-xs text-slate-400 hover:text-sky-300"
                   >
@@ -579,6 +670,7 @@
                 <div class="flex items-center justify-between mb-1">
                   <span class="text-xs text-slate-400 font-medium">삭제</span>
                   <button
+                    type="button"
                     onclick="copyCode('cmd-step3-del', this)"
                     class="text-xs text-slate-400 hover:text-sky-300"
                   >
@@ -595,6 +687,7 @@
                     >저장소 해제</span
                   >
                   <button
+                    type="button"
                     onclick="copyCode('cmd-step3-untap', this)"
                     class="text-xs text-slate-400 hover:text-sky-300"
                   >
@@ -652,7 +745,10 @@
         </div>
 
         <!-- Packages Container (pages.yml will replace) -->
-        <div id="packages-container" class="min-h-[140px] w-full overflow-hidden">
+        <div
+          id="packages-container"
+          class="min-h-[140px] w-full overflow-hidden"
+        >
           <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
             <!--PACKAGES-->
           </ul>
@@ -704,6 +800,7 @@
                     >1. .goreleaser.yaml에 homebrew_casks 추가</span
                   >
                   <button
+                    type="button"
                     onclick="copyCode('code-casks-yaml', this)"
                     class="text-xs text-slate-400 hover:text-sky-300"
                   >
@@ -782,6 +879,7 @@
                     >3. release.yml의 goreleaser 스텝에 환경변수 추가</span
                   >
                   <button
+                    type="button"
                     onclick="copyCode('code-release-env', this)"
                     class="text-xs text-slate-400 hover:text-sky-300"
                   >
@@ -837,6 +935,11 @@
       </section>
     </main>
 
+    <!-- Toast Notification -->
+    <div id="toast" role="alert" aria-live="assertive">
+      클립보드 복사에 실패했습니다.
+    </div>
+
     <!-- Footer -->
     <footer class="border-t border-slate-800/80 bg-slate-950 py-8 mt-auto">
       <div
@@ -865,82 +968,121 @@
 
     <!-- Interactive Script for Copy Buttons -->
     <script>
+      // Toast notification helper
+      let toastTimer = null;
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        if (!toast) return;
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
       function copyCode(elementId, button) {
         const codeElement = document.getElementById(elementId);
         if (!codeElement) return;
         const textToCopy = codeElement.innerText;
 
-        navigator.clipboard
-          .writeText(textToCopy)
-          .then(() => {
-            const textSpan = button.querySelector(".copy-btn-text");
-            const originalText = textSpan ? textSpan.innerText : "복사";
+        const onSuccess = () => {
+          const textSpan = button.querySelector(".copy-btn-text");
+          const originalText = textSpan ? textSpan.innerText : "복사";
+          button.classList.add("text-emerald-400", "border-emerald-500/50");
+          if (textSpan) textSpan.innerText = "복사됨!";
+          setTimeout(() => {
+            button.classList.remove(
+              "text-emerald-400",
+              "border-emerald-500/50",
+            );
+            if (textSpan) textSpan.innerText = originalText;
+          }, 2000);
+        };
 
-            button.classList.add("text-emerald-400", "border-emerald-500/50");
-            if (textSpan) textSpan.innerText = "복사됨!";
+        const onError = (err) => {
+          console.error("Failed to copy text: ", err);
+          // Fallback: execCommand
+          try {
+            const textarea = document.createElement("textarea");
+            textarea.value = textToCopy;
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            const success = document.execCommand("copy");
+            document.body.removeChild(textarea);
+            if (success) {
+              onSuccess();
+            } else {
+              showToast("클립보드 복사에 실패했습니다.");
+            }
+          } catch (e) {
+            showToast("클립보드 복사에 실패했습니다.");
+          }
+        };
 
-            setTimeout(() => {
-              button.classList.remove(
-                "text-emerald-400",
-                "border-emerald-500/50",
-              );
-              if (textSpan) textSpan.innerText = originalText;
-            }, 2000);
-          })
-          .catch((err) => {
-            console.error("Failed to copy text: ", err);
-          });
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard
+            .writeText(textToCopy)
+            .then(onSuccess)
+            .catch(onError);
+        } else {
+          onError(new Error("Clipboard API unavailable"));
+        }
       }
 
-      // Check if packages were replaced
+      // Fallback package data (used when CI has not replaced <!--PACKAGES--> yet)
+      const FALLBACK_PACKAGES = [
+        {
+          name: "ai-issue",
+          version: "latest",
+          description: "AI-assisted GitHub issue helper tool",
+          repo: "https://github.com/replworks/ai-issue",
+        },
+        {
+          name: "coolrestore",
+          version: "latest",
+          description: "PostgreSQL WAL & Basebackup restore helper CLI tool",
+          repo: "https://github.com/replworks/coolrestore",
+        },
+        {
+          name: "repl-cli",
+          version: "latest",
+          description: "CLI utility for repl services",
+          repo: "https://github.com/replworks/repl-cli",
+        },
+      ];
+
+      function renderFallbackPackages(ul) {
+        ul.innerHTML = FALLBACK_PACKAGES.map(
+          (pkg) => `
+          <li class="p-5 rounded-xl border border-slate-800 bg-slate-900/60 shadow-sm flex flex-col justify-between min-w-0 max-w-full overflow-hidden">
+            <div class="min-w-0">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <strong class="font-mono text-base font-semibold text-slate-200 truncate">${pkg.name}</strong>
+                <span class="px-2 py-0.5 text-xs font-mono rounded-full bg-slate-800 text-sky-400 border border-slate-700 shrink-0">${pkg.version}</span>
+              </div>
+              <p class="text-sm text-slate-400 mb-3 break-words">${pkg.description}</p>
+            </div>
+            <div class="pt-2 border-t border-slate-800/80 text-xs font-mono text-slate-500 flex items-center justify-between gap-2 flex-wrap min-w-0">
+              <code class="break-all">brew install --cask ${pkg.name}</code>
+              <a href="${pkg.repo}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline shrink-0">GitHub &rarr;</a>
+            </div>
+          </li>`,
+        ).join("");
+      }
+
+      // Check if packages were replaced by CI
       document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("packages-container");
         const ul = container ? container.querySelector("ul") : null;
-        const emptyHint = document.getElementById("empty-hint");
+
         if (ul && ul.children.length === 0) {
-          // Fallback display if viewing raw before CI build
-          ul.innerHTML = `
-          <li class="p-5 rounded-xl border border-slate-800 bg-slate-900/60 shadow-sm flex flex-col justify-between min-w-0 max-w-full overflow-hidden">
-            <div class="min-w-0">
-              <div class="flex items-center justify-between gap-2 mb-2">
-                <strong class="font-mono text-base font-semibold text-slate-200 truncate">ai-issue</strong>
-                <span class="px-2 py-0.5 text-xs font-mono rounded-full bg-slate-800 text-sky-400 border border-slate-700 shrink-0">latest</span>
-              </div>
-              <p class="text-sm text-slate-400 mb-3 break-words">AI-assisted GitHub issue helper tool</p>
-            </div>
-            <div class="pt-2 border-t border-slate-800/80 text-xs font-mono text-slate-500 flex items-center justify-between gap-2 flex-wrap min-w-0">
-              <code class="break-all">brew install --cask ai-issue</code>
-              <a href="https://github.com/replworks/ai-issue" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline shrink-0">GitHub &rarr;</a>
-            </div>
-          </li>
-          <li class="p-5 rounded-xl border border-slate-800 bg-slate-900/60 shadow-sm flex flex-col justify-between min-w-0 max-w-full overflow-hidden">
-            <div class="min-w-0">
-              <div class="flex items-center justify-between gap-2 mb-2">
-                <strong class="font-mono text-base font-semibold text-slate-200 truncate">coolrestore</strong>
-                <span class="px-2 py-0.5 text-xs font-mono rounded-full bg-slate-800 text-sky-400 border border-slate-700 shrink-0">latest</span>
-              </div>
-              <p class="text-sm text-slate-400 mb-3 break-words">PostgreSQL WAL & Basebackup restore helper CLI tool</p>
-            </div>
-            <div class="pt-2 border-t border-slate-800/80 text-xs font-mono text-slate-500 flex items-center justify-between gap-2 flex-wrap min-w-0">
-              <code class="break-all">brew install --cask coolrestore</code>
-              <a href="https://github.com/replworks/coolrestore" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline shrink-0">GitHub &rarr;</a>
-            </div>
-          </li>
-          <li class="p-5 rounded-xl border border-slate-800 bg-slate-900/60 shadow-sm flex flex-col justify-between min-w-0 max-w-full overflow-hidden">
-            <div class="min-w-0">
-              <div class="flex items-center justify-between gap-2 mb-2">
-                <strong class="font-mono text-base font-semibold text-slate-200 truncate">repl-cli</strong>
-                <span class="px-2 py-0.5 text-xs font-mono rounded-full bg-slate-800 text-sky-400 border border-slate-700 shrink-0">latest</span>
-              </div>
-              <p class="text-sm text-slate-400 mb-3 break-words">CLI utility for repl services</p>
-            </div>
-            <div class="pt-2 border-t border-slate-800/80 text-xs font-mono text-slate-500 flex items-center justify-between gap-2 flex-wrap min-w-0">
-              <code class="break-all">brew install --cask repl-cli</code>
-              <a href="https://github.com/replworks/repl-cli" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline shrink-0">GitHub &rarr;</a>
-            </div>
-          </li>
-        `;
-          if (emptyHint) emptyHint.classList.remove("hidden");
+          // CI has not replaced <!--PACKAGES--> yet; show fallback data
+          // emptyHint is intentionally NOT shown because fallback content is displayed
+          renderFallbackPackages(ul);
         }
 
         // Mobile navigation menu toggle
@@ -952,7 +1094,9 @@
         if (menuBtn && mobileMenu) {
           const toggleMenu = (open) => {
             const shouldOpen =
-              open !== undefined ? open : mobileMenu.classList.contains("hidden");
+              open !== undefined
+                ? open
+                : mobileMenu.classList.contains("hidden");
             if (shouldOpen) {
               mobileMenu.classList.remove("hidden");
               menuBtn.setAttribute("aria-expanded", "true");
