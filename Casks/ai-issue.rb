@@ -6,25 +6,25 @@ cask "ai-issue" do
     end
   end
 
-  version "1.1.1"
+  version "1.2.0"
 
   on_macos do
     on_arm do
-      sha256 "ac97782618d532cfef02b2ba04590134cee950409b10cb06d930f791246444bc"
+      sha256 "54f5eb6d9551dfddf85f81dc866921f421a031a501fff3198ad945316e43ddf0"
       url "https://github.com/replworks/ai-issue/releases/download/v#{version}/ai-issue_#{version}_darwin_arm64.tar.gz"
     end
     on_intel do
-      sha256 "befff2c9ff86d40f9572ccc8fc6e70086b9607259c9a29ec2326c5ff38d8e768"
+      sha256 "9fe6bc567e77128c8fe0ba73baaae6d7538090a0dc4bb1f4e5ff97647aef2402"
       url "https://github.com/replworks/ai-issue/releases/download/v#{version}/ai-issue_#{version}_darwin_amd64.tar.gz"
     end
   end
   on_linux do
     on_arm do
-      sha256 "f033a4a64b584b722b92881d7b6ff2bfb020adbb53bb3ab747e2b9c8e73de38e"
+      sha256 "dd8672441accaa091253263f6359d7b4136da94434436dd906a0cdf850702804"
       url "https://github.com/replworks/ai-issue/releases/download/v#{version}/ai-issue_#{version}_linux_arm64.tar.gz"
     end
     on_intel do
-      sha256 "a61f3e72435be030764fd5550df2ffb2bf7d4a39de0ca9a211507bc23decf327"
+      sha256 "21333afac890caa500540d6e473ccfe8721d3f10463335783e8c46543922f470"
       url "https://github.com/replworks/ai-issue/releases/download/v#{version}/ai-issue_#{version}_linux_amd64.tar.gz"
     end
   end
