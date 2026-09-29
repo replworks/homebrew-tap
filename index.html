@@ -1033,7 +1033,7 @@
         }
       }
 
-      // Fallback package data (used when CI has not replaced <!--PACKAGES--> yet)
+      // Fallback package data (used when CI has not replaced PACKAGES placeholder yet)
       const FALLBACK_PACKAGES = [
         {
           name: "ai-issue",
@@ -1080,7 +1080,7 @@
         const ul = container ? container.querySelector("ul") : null;
 
         if (ul && ul.children.length === 0) {
-          // CI has not replaced <!--PACKAGES--> yet; show fallback data
+          // CI has not replaced PACKAGES placeholder yet; show fallback data
           // emptyHint is intentionally NOT shown because fallback content is displayed
           renderFallbackPackages(ul);
         }
