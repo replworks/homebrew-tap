@@ -6,25 +6,25 @@ cask "coolrestore" do
     end
   end
 
-  version "0.1.2"
+  version "1.0.0"
 
   on_macos do
     on_arm do
-      sha256 "78ecd740bc5996d1820454bce63a299fe8bb3a1c50ca2e347a6da6a77122d520"
+      sha256 "bc8cf15b2d1b3d5a9c7e61690331b8f684af73de477fe95b86309b65ff22f043"
       url "https://github.com/replworks/coolrestore/releases/download/v#{version}/coolrestore_#{version}_darwin_arm64.tar.gz"
     end
     on_intel do
-      sha256 "227eee394739ebb554240ab16787fe2f152febb4515e9b27fd177149e60408bb"
+      sha256 "a035f9eecb4c229f5b7d3ac749361640913906a42debc5baf7cf5745eee44e45"
       url "https://github.com/replworks/coolrestore/releases/download/v#{version}/coolrestore_#{version}_darwin_amd64.tar.gz"
     end
   end
   on_linux do
     on_arm do
-      sha256 "20f2b0525aa2760a239d3e0a171576863206a906175a836a9bd1544ad316f58e"
+      sha256 "7649c573783eeb063fce46d90026cbcec60750b5d99dc45d672707640e267955"
       url "https://github.com/replworks/coolrestore/releases/download/v#{version}/coolrestore_#{version}_linux_arm64.tar.gz"
     end
     on_intel do
-      sha256 "e4f23ca452b2f82fdc99353d1efde59537c1087f1343541d088ecb5e18994e68"
+      sha256 "c090e2970aadc3b4e863a5f8c37cf336cceca86f57b8f88ca4e17f3028bae14d"
       url "https://github.com/replworks/coolrestore/releases/download/v#{version}/coolrestore_#{version}_linux_amd64.tar.gz"
     end
   end
