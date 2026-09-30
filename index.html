@@ -714,7 +714,7 @@
                   </button>
                 </div>
                 <pre
-                  class="bg-black/50 p-2 rounded font-mono text-xs text-slate-200 overflow-x-auto"
+                  class="bg-black/50 py-2 px-2.5 rounded font-mono text-xs text-slate-200 overflow-x-auto"
                 ><code id="cmd-step3-untap">brew untap replworks/tap</code></pre>
               </div>
             </div>
@@ -814,20 +814,21 @@
               <div
                 class="mb-4 p-4 rounded-xl bg-slate-950/70 border border-slate-800 overflow-hidden"
               >
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-bold text-slate-200"
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span
+                    class="text-xs font-bold text-slate-200 min-w-0 truncate"
                     >1. .goreleaser.yaml에 homebrew_casks 추가</span
                   >
                   <button
                     type="button"
                     onclick="copyCode('code-casks-yaml', this)"
-                    class="text-xs text-slate-400 hover:text-sky-300"
+                    class="text-xs text-slate-400 hover:text-sky-300 shrink-0 whitespace-nowrap"
                   >
                     <span class="copy-btn-text">복사</span>
                   </button>
                 </div>
                 <pre
-                  class="bg-black/60 p-3 rounded-lg font-mono text-xs text-slate-200 overflow-x-auto w-full max-w-full"
+                  class="bg-black/60 py-2.5 px-3 rounded-lg font-mono text-xs text-slate-200 overflow-x-auto w-full max-w-full"
                 ><code id="code-casks-yaml">homebrew_casks:
   - repository:
       owner: replworks
@@ -893,20 +894,21 @@
               <div
                 class="mb-4 p-4 rounded-xl bg-slate-950/70 border border-slate-800 overflow-hidden"
               >
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-bold text-slate-200"
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span
+                    class="text-xs font-bold text-slate-200 min-w-0 truncate"
                     >3. release.yml의 goreleaser 스텝에 환경변수 추가</span
                   >
                   <button
                     type="button"
                     onclick="copyCode('code-release-env', this)"
-                    class="text-xs text-slate-400 hover:text-sky-300"
+                    class="text-xs text-slate-400 hover:text-sky-300 shrink-0 whitespace-nowrap"
                   >
                     <span class="copy-btn-text">복사</span>
                   </button>
                 </div>
                 <pre
-                  class="bg-black/60 p-3 rounded-lg font-mono text-xs text-slate-200 overflow-x-auto w-full max-w-full"
+                  class="bg-black/60 py-2.5 px-3 rounded-lg font-mono text-xs text-slate-200 overflow-x-auto w-full max-w-full"
                 ><code id="code-release-env">- uses: goreleaser/goreleaser-action@v7
   with:
     version: latest
