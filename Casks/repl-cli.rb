@@ -2,29 +2,29 @@
 cask "repl-cli" do
   on_macos do
     postflight_steps do
-      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/repl-cli"]
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/repl"]
     end
   end
 
-  version "0.2.1"
+  version "0.2.2"
 
   on_macos do
     on_arm do
-      sha256 "6c44397c0d850efa80745035f10d926ae60416db4f5d0af942d1c68c36bb6759"
+      sha256 "c5728a2a059786e2710695d0fb5ff8e8cc9d6a4f803b3e0103df9c5de2c32750"
       url "https://github.com/replworks/repl-cli/releases/download/v#{version}/repl-cli_#{version}_darwin_arm64.tar.gz"
     end
     on_intel do
-      sha256 "44942871b15015af22ff3149404f78d44e622b0dd72fcd0601cbaa510d5da0c2"
+      sha256 "3b8d713434cc2dcd67cfa27ba4c0cde5253a04c6991c286958207131f6f73747"
       url "https://github.com/replworks/repl-cli/releases/download/v#{version}/repl-cli_#{version}_darwin_amd64.tar.gz"
     end
   end
   on_linux do
     on_arm do
-      sha256 "a4711c748b7b232c4bfcc1bef80754e5a8a23d46bfc58ead7b935397e0e531e8"
+      sha256 "4eaefe98776257551f00229818638b18aa74bf3da197c3adc31e8a9543ef9e77"
       url "https://github.com/replworks/repl-cli/releases/download/v#{version}/repl-cli_#{version}_linux_arm64.tar.gz"
     end
     on_intel do
-      sha256 "b91181afc79ca64b7b313cb21958b24758d999fd67b6481beef11be68398bdac"
+      sha256 "d383f21af1e76aef590accb641f16322458f5259e71a3b6b91f13ce90a6bf257"
       url "https://github.com/replworks/repl-cli/releases/download/v#{version}/repl-cli_#{version}_linux_amd64.tar.gz"
     end
   end
@@ -37,7 +37,7 @@ cask "repl-cli" do
     skip "Auto-generated on release."
   end
 
-  binary "repl-cli"
+  binary "repl"
 
   # No zap stanza required
 end
