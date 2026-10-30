@@ -1,0 +1,8 @@
+{
+  "name": "homebrew-tap",
+  "compatibility_date": "2026-10-31",
+  "assets": {
+    "directory": "./site",
+    "not_found_handling": "404-page"
+  }
+}
