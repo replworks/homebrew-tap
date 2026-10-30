@@ -1,6 +1,6 @@
 # replworks/homebrew-tap
 
-[![pages](https://github.com/replworks/homebrew-tap/actions/workflows/pages.yml/badge.svg)](https://github.com/replworks/homebrew-tap/actions/workflows/pages.yml)
+[![Cloudflare Worker](https://github.com/replworks/homebrew-tap/actions/workflows/cloudflare-worker.yml/badge.svg)](https://github.com/replworks/homebrew-tap/actions/workflows/cloudflare-worker.yml)
 
 replworks 도구를 macOS에서 `brew`로 설치하기 위한 Homebrew tap.
 각 프로젝트가 릴리스할 때 goreleaser가 `Casks/<이름>.rb`를 이 저장소에 자동으로 커밋한다.
@@ -9,7 +9,7 @@ replworks 도구를 macOS에서 `brew`로 설치하기 위한 Homebrew tap.
 
 1. 각 프로젝트가 태그를 푸시하면 프로젝트의 `release.yml`이 goreleaser를 돌린다.
 2. goreleaser가 GitHub Release를 만들고, `homebrew_casks` 설정대로 이 저장소의 `Casks/<이름>.rb`를 **자동으로 만들거나 갱신하고 커밋**한다. (`HOMEBREW_TAP_GITHUB_TOKEN`으로 push)
-3. 이 저장소에 push가 생기면 `pages.yml`이 돌아서 `Casks/*.rb`를 읽고 랜딩 페이지의 패키지 목록을 다시 만든다.
+3. 이 저장소의 `main`에 push가 생기면 GitHub Actions가 `Casks/*.rb`를 읽어 랜딩 페이지를 만들고 Wrangler로 Cloudflare Worker에 배포한다.
 
 ## 구조
 
@@ -17,8 +17,9 @@ replworks 도구를 macOS에서 `brew`로 설치하기 위한 Homebrew tap.
 .
 ├── Casks/                        # goreleaser가 자동으로 관리 (직접 수정하지 않는다)
 ├── tap_migrations.json           # 패키지 이름을 바꾸거나 다른 tap으로 옮길 때 쓰는 Homebrew 파일
-├── index.html                    # 랜딩 페이지 템플릿 (<!--PACKAGES--> 자리를 워크플로가 채움)
-└── .github/workflows/pages.yml   # Casks를 읽어 랜딩 페이지를 만들고 Pages에 배포
+├── index.html                    # 랜딩 페이지 템플릿 (<!--PACKAGES--> 자리를 Action이 채움)
+├── wrangler.jsonc                # Worker 이름, 정적 파일 경로, 404 동작 설정
+└── .github/workflows/cloudflare-worker.yml # Casks를 읽고 Worker에 배포
 ```
 
 ## 새 저장소(패키지) 추가하는 법
@@ -72,7 +73,7 @@ homebrew_casks:
 
 - 프로젝트에 새 태그를 푸시한다.
 - 이 저장소에 `Casks/<이름>.rb` 커밋이 생겼는지 본다.
-- Actions 탭에서 `pages`가 돌았는지, 랜딩 페이지에 카드가 생겼는지 본다.
+- Actions 탭에서 `Cloudflare Worker`가 성공했는지, [brew.repl.net](https://brew.repl.net)에 카드가 생겼는지 본다.
 - macOS에서 `brew tap replworks/tap && brew install --cask <이름>`으로 설치해본다.
 
 > `Casks/<이름>.rb`는 직접 만들지 않는다. goreleaser가 릴리스할 때마다 덮어쓰기 때문에 직접 고친 내용은 사라진다.
@@ -92,7 +93,7 @@ brew install --cask <패키지 이름>
 
 ## 한 번만 해둔 설정 (참고)
 
-- **Pages**: Settings → Pages → Source는 **GitHub Actions**. 도메인을 붙이면 Custom domain과 Enforce HTTPS도 여기서 설정한다.
+- **Cloudflare Worker**: GitHub 저장소 Actions 시크릿 `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`를 등록한다. API 토큰에는 Workers Scripts 편집 권한이 필요하다. `wrangler.jsonc`의 Worker 이름은 `homebrew-tap`이며, 첫 배포 후 Custom Domains에 `brew.repl.net`을 연결한다.
 - **브랜치 보호**: main에 걸어두지 않는다. goreleaser가 main에 직접 push한다.
 
 ## 문제 생겼을 때
@@ -101,7 +102,7 @@ brew install --cask <패키지 이름>
 | ------------------------------------------------ | --------------------------------------------------------------------------------------- |
 | goreleaser 로그에서 tap push 실패 (403 등)       | `HOMEBREW_TAP_TOKEN` 권한(Contents: Read and write), 만료일, 저장소 범위                |
 | `Casks/`에 파일이 안 생김                        | `homebrew_casks` 블록이 있는지, release.yml에 `HOMEBREW_TAP_GITHUB_TOKEN`이 들어 있는지 |
-| `pages`가 안 돎                                  | Pages Source가 GitHub Actions인지, 커밋이 `Casks/**`를 건드렸는지                       |
+| `Cloudflare Worker` 배포가 안 됨                 | Actions 시크릿 권한/값과 Worker 배포 로그, Worker 이름이 `wrangler.jsonc`와 일치하는지  |
 | 랜딩 페이지 카드에 버전/설명이 빔                | `Casks/<이름>.rb`에 `version`, `desc`, `homepage`가 한 줄씩 있는지                      |
 | `brew install`에서 "unidentified developer" 경고 | `custom_block`의 `xattr` 스텝과 바이너리 이름이 맞는지                                  |
 | Linux에서 `brew install` 실패                    | Cask는 macOS 전용이다. Linux는 apt 저장소를 쓴다                                        |
