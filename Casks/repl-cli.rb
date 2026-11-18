@@ -6,25 +6,25 @@ cask "repl-cli" do
     end
   end
 
-  version "0.7.0"
+  version "0.8.0"
 
   on_macos do
     on_arm do
-      sha256 "d69fd2374d8871dcc29e78b04e0fd33d169ba3716c95e20eec4f4308ed968329"
+      sha256 "074d4dc7e76d491b7fc2eb221f578f5d00c721b246d23c07ecb95073bd6bbafd"
       url "https://github.com/replworks/repl-cli/releases/download/v#{version}/repl-cli_#{version}_darwin_arm64.tar.gz"
     end
     on_intel do
-      sha256 "25d43f4bc66c55f83561c7d5a800655c6ad5d0f0e66620f3826fc57e43fd87bc"
+      sha256 "36919a4c730538ddee7952d40c29da9ebb20ae48cb94122663405c33dcda3f11"
       url "https://github.com/replworks/repl-cli/releases/download/v#{version}/repl-cli_#{version}_darwin_amd64.tar.gz"
     end
   end
   on_linux do
     on_arm do
-      sha256 "76983e29c7dda82f689ed8052b20e27a24b9ec2e10481eeb2bf0bdb9f1f090d0"
+      sha256 "6575294196d12810cf5df9db40fa12125c2658dde462a461a402ea426d4dd330"
       url "https://github.com/replworks/repl-cli/releases/download/v#{version}/repl-cli_#{version}_linux_arm64.tar.gz"
     end
     on_intel do
-      sha256 "d8b443ad5ed40f3cf09facb9357ed7627b8b4b323fdba983dd12213ed8f61089"
+      sha256 "dc33eefe8aad6c143c955486ac81130c9b0261993b338343fed940d45700129c"
       url "https://github.com/replworks/repl-cli/releases/download/v#{version}/repl-cli_#{version}_linux_amd64.tar.gz"
     end
   end
